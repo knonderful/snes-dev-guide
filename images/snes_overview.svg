@@ -1,0 +1,81 @@
+<svg contentScriptType="text/ecmascript" width="600" xmlns:xlink="http://www.w3.org/1999/xlink" zoomAndPan="magnify" contentStyleType="text/css" height="400" viewBox="0 0 600.0 400.0" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" version="1.0">
+<defs/>
+<g>
+<rect x="220" width="195" y="50" height="20.000000000000014" style="fill:#cccccc;stroke:#000000;"/>
+<text x="155" y="105" style="text-anchor:start;font-size:12pt;font-family:sans-serif;fill:#000000;" transform="matrix(1 0 0 1 115 -40)">
+Cartridge slot</text>
+</g>
+<g>
+<rect x="290.00000000000006" width="55" y="134.99999999999997" height="50" style="stroke-linejoin:miter;stroke-dasharray:none;fill:#99ccff;stroke:#000000;"/>
+<text x="230" y="215" style="text-anchor:start;font-size:12pt;font-family:sans-serif;fill:#000000;" transform="matrix(1 0 0 1 70 -50)">
+CPU</text>
+</g>
+<g>
+<rect x="190" width="60" y="84.99999999999999" height="50.000000000000014" style="fill:#ffccff;stroke:#000000;"/>
+<text x="140" y="205" style="font-size:12pt;font-family:sans-serif;fill:#000000;" transform="matrix(1 0 0 1 55 -95)">
+WRAM</text>
+<text x="180" y="115" style="font-size:7pt;font-family:sans-serif;fill:#000000;" transform="matrix(1 0 0 1 20 15)">
+(128 KiB)</text>
+</g>
+<g id="0">
+<rect x="560" width="55" height="50" y="543" style="stroke-linejoin:miter;stroke-dasharray:none;fill:#99ccff;stroke:#000000;"/>
+<text x="230" y="215" style="font-size:12pt;font-family:sans-serif;fill:#000000;" transform="matrix(1 0 0 1 340 358)">
+CPU</text>
+</g>
+<g id="1">
+<rect x="343.00000000000006" width="55" height="50" y="521" style="stroke-linejoin:miter;stroke-dasharray:none;fill:#99ccff;stroke:#000000;"/>
+<text x="230" y="215" style="font-size:12pt;font-family:sans-serif;fill:#000000;" transform="matrix(1 0 0 1 123 336)">
+CPU</text>
+</g>
+<g id="2">
+<rect x="659" width="55" height="50" y="566" style="stroke-linejoin:miter;stroke-dasharray:none;fill:#99ccff;stroke:#000000;"/>
+<text x="230" y="215" style="font-size:12pt;font-family:sans-serif;fill:#000000;" transform="matrix(1 0 0 1 439 381)">
+CPU</text>
+</g>
+<g id="3">
+<rect x="235.00000000000006" width="55" height="50" y="249.99999999999997" style="stroke-linejoin:miter;stroke-dasharray:none;fill:#ff9999;stroke:#000000;"/>
+<text x="230" y="215" style="font-size:12pt;font-family:sans-serif;fill:#000000;" transform="matrix(1 0 0 1 15 65)">
+PPU</text>
+</g>
+<g id="4">
+<rect x="345.00000000000006" width="55" y="249.99999999999997" height="50" style="stroke-linejoin:miter;stroke-dasharray:none;fill:#ccff99;stroke:#000000;"/>
+<text x="230" y="215" style="font-size:12pt;font-family:sans-serif;fill:#000000;" transform="matrix(1 0 0 1 125 65)">
+APU</text>
+</g>
+<g id="5">
+<rect x="144.99999999999997" width="60" height="50.00000000000003" y="249.99999999999997" style="fill:#ffccff;stroke:#000000;"/>
+<text x="140" y="205" style="font-size:12pt;font-family:sans-serif;fill:#000000;" transform="matrix(1 0 0 1 9.999999999999972 70)">
+VRAM</text>
+<text x="180" y="115" style="font-size:7pt;font-family:sans-serif;fill:#000000;" transform="matrix(1 0 0 1 -20 175)">
+(64 KiB)</text>
+</g>
+<g>
+<path style="fill:#ffffcc;stroke:#000000;" d="M330 135L330 85L335 85L320 70L305 85L310 85L310 100L265 100L265 95L250 110L265 125L265 120L310 120L310 135Z"/>
+<text x="260" y="230" style="font-size:10pt;font-family:sans-serif;fill:#000000;" transform="matrix(1 0 0 1 20 -115)">
+A bus</text>
+</g>
+<g>
+<path style="fill:#ccffff;stroke:#000000;" d="M220 135L205 155L210 155L210 200L165 200L165 230L160 230L175 250L190 230L185 230L185 220L255 220L255 230L250 230L265 250L280 230L275 230L275 220L360 220L360 230L355 230L370 250L385 230L380 230L380 200L330 200L330 185L310 185L310 200L230 200L230 155L235 155L220 135Z"/>
+<text x="90" y="175" style="font-size:10pt;font-family:sans-serif;fill:#000000;" transform="matrix(1 0 0 1 165 40)">
+B bus</text>
+</g>
+<g id="6">
+<rect x="430" width="60" y="250.00000000000003" height="49.99999999999997" style="fill:#ffccff;stroke:#000000;"/>
+<text x="180" y="115" style="font-size:7pt;font-family:sans-serif;fill:#000000;" transform="matrix(1 0 0 1 265 180)">
+(64 KiB)</text>
+<text x="450" y="260" style="font-size:10pt;font-family:sans-serif;fill:#000000;" transform="matrix(1 0 0 1 -10 5)">
+Sound</text>
+<text x="450" y="270" style="font-size:10pt;font-family:sans-serif;fill:#000000;" transform="matrix(1 0 0 1 -5 10)">
+RAM</text>
+</g>
+<path style="fill:none;stroke:#000000;" d="M235 270L215 270L215 265L205 275L215 285L215 280L235 280Z"/>
+<path style="fill:none;stroke:#000000;" d="M400 270L420 270L420 265L430 275L420 285L420 280L400 280Z"/>
+<g>
+<rect width="35" x="390" height="70" y="125" style="fill:#ffffff;stroke:#000000;"/>
+<text x="480" y="70" style="text-decoration:none;text-anchor:start;font-size:10pt;font-family:sans-serif;font-stretch:normal;fill:#000000;" transform="matrix(0 -1 1 0 333.2845153808594 673.3452758789062)">
+Controller</text>
+<text x="450" y="35" style="font-size:10pt;fill:#000000;" transform="matrix(0 -1 1 0 383.3452453613281 626.66552734375)">
+ports</text>
+</g>
+<path style="fill:none;stroke:#000000;" d="M345 155L375 155L375 150L390 160L375 170L375 165L345 165Z"/>
+</svg>

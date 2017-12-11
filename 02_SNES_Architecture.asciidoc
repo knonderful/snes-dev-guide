@@ -1,0 +1,10 @@
+# SNES architecture
+
+The SNES is a cartridge-based system that does not contain any operating system (OS).
+In contrast, even the most basic personal computer (PC) has at least a BIOS (basic input- and output-system) which gets loaded when the device is powered on.
+In case of the SNES, when the system gets powered on, it starts executing machine instructions directly from the cartridge.
+
+The following is a (highly simplified) schematic overview of the main components inside the SNES.
+
+image::images/snes_overview.svg[align=left]
+
