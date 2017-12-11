@@ -1,0 +1,6 @@
+# Introduction
+
+The intention of this guide is to make it easier for new (aspiring) SNES developers to get started with software development.
+Most existing guides cover only specific aspects of the platform.
+Additionally, in most documents some expertise is expected from the reader that may not be present.
+This guide attempts to establish a complete and concise documentation and presumes only basic programming experience from the outset.

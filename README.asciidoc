@@ -1,2 +1,5 @@
 # SNES development guide
+:toc:
+:toclevels: 3
 
+include::01_Introduction.asciidoc[leveloffset=1]
