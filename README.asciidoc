@@ -5,3 +5,4 @@
 :sectnums:
 
 include::01_Introduction.asciidoc[leveloffset=1]
+include::02_SNES_Architecture.asciidoc[leveloffset=1]
