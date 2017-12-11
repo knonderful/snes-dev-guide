@@ -4,3 +4,6 @@ The intention of this guide is to make it easier for new (aspiring) SNES develop
 Most existing guides cover only specific aspects of the platform.
 Additionally, in most documents some expertise is expected from the reader that may not be present.
 This guide attempts to establish a complete and concise documentation and presumes only basic programming experience from the outset.
+
+Throughout this guide the Super Nintendo Entertainment System will simply be referred to as "SNES".
+In general, this will be the general name for all versions of the console, including the Super Famicom (as it was marketed in Japan).
