@@ -74,7 +74,7 @@ RAM</text>
 <rect width="35" x="390" height="70" y="125" style="fill:#ffffff;stroke:#000000;"/>
 <text x="480" y="70" style="text-decoration:none;text-anchor:start;font-size:10pt;font-family:sans-serif;font-stretch:normal;fill:#000000;" transform="matrix(0 -1 1 0 333.2845153808594 673.3452758789062)">
 Controller</text>
-<text x="450" y="35" style="font-size:10pt;fill:#000000;" transform="matrix(0 -1 1 0 383.3452453613281 626.66552734375)">
+<text x="450" y="35" style="font-size:10pt;font-family:sans-serif;fill:#000000;" transform="matrix(0 -1 1 0 383.3452453613281 626.66552734375)">
 ports</text>
 </g>
 <path style="fill:none;stroke:#000000;" d="M345 155L375 155L375 150L390 160L375 170L375 165L345 165Z"/>
