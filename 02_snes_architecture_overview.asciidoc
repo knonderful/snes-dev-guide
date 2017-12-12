@@ -8,6 +8,7 @@ In case of the SNES, when the system gets powered on, it starts executing machin
 
 The following is a (simplified) schematic overview of the main components inside the SNES.
 
+.SNES components
 image::images/snes_overview.svg[]
 
 The _central processing unit_ (CPU) is the brain of the SNES.
