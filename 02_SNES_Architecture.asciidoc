@@ -1,4 +1,4 @@
-# SNES architecture
+# SNES architecture overview
 
 ## Components
 
