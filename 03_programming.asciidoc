@@ -1,0 +1,31 @@
+= Programming basics
+
+As mentioned in <<02_snes_architecture_overview.asciidoc#,SNES architecture overview>>, programs can be loaded into the SNES through the cartridge ROM.
+Each instruction is represented by a byte.
+The value of the byte tells the CPU which operation it should perform (for instance copy a byte into a certain location in WRAM).
+There are many different CPU instructions that the CPU supports.
+Many instructions take arguments (for instance the address of the target location in WRAM), in which case the CPU will interpret the following bytes in memory as the arguments to the instruction.
+
+Internally, the CPU has a number of so-called _registers_.
+The registers are used to temporarily hold values inside the CPU. Different registers have different purposes.
+The CPU inside the SNES is a Ricoh 5A22, which is an enhanced version of the 65816 by Western Design Center.
+It is a 16-bit CPU, which means that its main "work" registers can hold 16-bit values.
+This in contrast to the CPU in the NES which can only work with 8-bit numbers.
+In general 16-bit processors can be more effective, since they can handle more data with a single operation.
+
+The following is an overview of all registers for the 65816.
+
+.65816 registers
+[cols="5,20,75",options="header"]
+|===
+| Short | Name             | Purpose
+| A     | Accumulator      | Handles all arithmetic and logic.
+| X     | Index X          | Register for indexing. Often used as a loop variable.
+| Y     | Index Y          | Register for indexing. Often used to calculate addresses with a certain offset to a base address.
+| P     | Processor Status | Processor flags, holds the results of tests and 65816 processing states.
+| S     | Stack Pointer    | Points to the current location of the stack.
+| DP    | Direct Page      | Points to the current page for direct addressing mode operations.
+| PB    | Program Bank     | Holds the memory bank address of the current CPU instruction.
+| PC    | Program Counter  | Holds the memory address of the current CPU instruction.
+| DB    | Data Bank        | Holds the memory bank address of the data the CPU is accessing.
+|===
