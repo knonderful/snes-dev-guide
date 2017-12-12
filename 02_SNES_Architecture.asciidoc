@@ -1,10 +1,34 @@
 # SNES architecture
 
+## Components
+
 The SNES is a cartridge-based system that does not contain any operating system (OS).
 In contrast, even the most basic personal computer (PC) has at least a BIOS (basic input- and output-system) which gets loaded when the device is powered on.
 In case of the SNES, when the system gets powered on, it starts executing machine instructions directly from the cartridge.
 
 The following is a (highly simplified) schematic overview of the main components inside the SNES.
 
-image::images/snes_overview.svg[align=left]
+image::images/snes_overview.svg[]
 
+The _central processing unit_ (CPU) is the brain of the SNES.
+It controls all logic inside the system.
+The CPU reads instructions from the inserted cartridge (also sometimes called a gamepak).
+It then executes the instruction that was read and advances to the next instruction.
+This process will normally continue until the system is powered off.
+
+The main component inside a SNES game cartridge is the _read-only memory_, or ROM.
+As the name implies, this memory can not be modified; it contains all the data (game code, graphics data, sound data, etc) that is required by the game.
+In other words, it contains all software and media that was created by the developer.
+When the SNES is powered on (or when the reset button is pressed), the CPU will start executing code from a pre-determined location inside the ROM of the cartridge.
+Since the CPU will simply execute the instructions it finds in the ROM, the developer has the possibility to control what the SNES will do at run-time.
+Some cartridges come with another _co-processor_ installed.
+This allows the game developers to pack functionality into their game that are beyond the scope of the basic functionality of the SNES itself.
+An example of such functionality is generation of basic 3D images.
+
+Most programs for the SNES require more than just ROM; they need to be able to store some _state information_ that changes over time while the program is being executed.
+Examples of this is the number of lives for the hero character, the player's score count or the number of minutes remaining for saving the princess.
+The place for storing this kind of data is in _random-access memory_, or RAM.
+This type of memory can be read and written by the program code.
+There are different places within the SNES that contain RAM modules.
+The designated place for storing program-related information is the WRAM.
+No component within the SNES will read or write from the WRAM unless it is by an explicit CPU instruction from the game cartridge's ROM.
