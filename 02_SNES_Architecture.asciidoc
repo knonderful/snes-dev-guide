@@ -6,7 +6,7 @@ The SNES is a cartridge-based system that does not contain any operating system 
 In contrast, even the most basic personal computer (PC) has at least a BIOS (basic input- and output-system) which gets loaded when the device is powered on.
 In case of the SNES, when the system gets powered on, it starts executing machine instructions directly from the cartridge.
 
-The following is a (highly simplified) schematic overview of the main components inside the SNES.
+The following is a (simplified) schematic overview of the main components inside the SNES.
 
 image::images/snes_overview.svg[]
 
@@ -30,5 +30,8 @@ Examples of this is the number of lives for the hero character, the player's sco
 The place for storing this kind of data is in _random-access memory_, or RAM.
 This type of memory can be read and written by the program code.
 There are different places within the SNES that contain RAM modules.
-The designated place for storing program-related information is the WRAM.
+The designated place for storing program-related information is the WRAM (short for "work RAM").
 No component within the SNES will read or write from the WRAM unless it is by an explicit CPU instruction from the game cartridge's ROM.
+
+In order to produce output towards the user, the SNES has two more components: the _picture processing unit_ (PPU) for generating images and the _audio processing unit_ (APU) for generating sound.
+CPU instructions in the cartridge ROM can interact with these components in order to generate the desired output.
