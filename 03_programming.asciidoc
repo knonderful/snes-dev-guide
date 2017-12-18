@@ -1,19 +1,24 @@
 = Programming basics
 
 As mentioned in <<02_snes_architecture_overview.asciidoc#,SNES architecture overview>>, programs can be loaded into the SNES through the cartridge ROM.
-Each instruction is represented by a byte.
-The value of the byte tells the CPU which operation it should perform (for instance copy a byte into a certain location in WRAM).
+Each _operation_ is represented by a byte.
+An operation can be something like "add two values together" or "copy a value in memory from location A to location B".
+Some operations take _arguments_, which are encoded in the bytes that follow the byte that identifies the operation.
+Arguments are specific to the type of operation.
+The argument to the "add" example above would be the number 15.
+The operation together with its arguments forms an _instruction_.
+An instruction is one unit of work that will be performed at a time by the CPU.
 There are many different CPU instructions that the CPU supports.
-Many instructions take arguments (for instance the address of the target location in WRAM), in which case the CPU will interpret the following bytes in memory as the arguments to the instruction.
 
-Internally, the CPU has a number of so-called _registers_.
-The registers are used to temporarily hold values inside the CPU. Different registers have different purposes.
+In order to be able to work with data, the CPU has a number of so-called _registers_.
+The registers are used to temporarily hold values inside the CPU.
+Different registers have different purposes.
 The CPU inside the SNES is a Ricoh 5A22, which is an enhanced version of the 65816 by Western Design Center.
 It is a 16-bit CPU, which means that its main "work" registers can hold 16-bit values.
 This in contrast to the CPU in the NES which can only work with 8-bit numbers.
 In general 16-bit processors can be more effective, since they can handle more data with a single operation.
 
-The following is an overview of all registers for the 65816.
+The following is an overview of all registers inside the 65816.
 
 .65816 registers
 [cols="5,20,75",options="header"]
@@ -29,3 +34,14 @@ The following is an overview of all registers for the 65816.
 | PC    | Program Counter  | Holds the memory address of the current CPU instruction.
 | DB    | Data Bank        | Holds the memory bank address of the data the CPU is accessing.
 |===
+
+It is not important to understand what all these registers do at this point.
+In general the most commonly used registers are A, X and Y.
+
+Though it would be possible to write the code for the SNES entirely in binary form (byte-by-byte), this would be a very confusing and inefficient way to work, since the binary representation of the operations do not reflect what they do.
+In order to get around this problem a more abstract instruction set has been defined.
+
+An _assembler_ is a program that takes such abstract instructions and converts them into the _byte-code_ that the 65816 CPU can read.
+In assembly language, each instruction is made up of a _mnemonic_ (a 'symbol' that describes the operation) and its parameters (if the operation takes any parameters).
+An example of such a mnemonic is "Load a value into the A register": `LDA`.
+The instruction "Load value 42 into the A register" would be: `LDA #42`.
