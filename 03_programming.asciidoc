@@ -1,5 +1,7 @@
 = Programming basics
 
+== Operations and instructions
+
 As mentioned in <<02_snes_architecture_overview.asciidoc#,SNES architecture overview>>, programs can be loaded into the SNES through the cartridge ROM.
 Each _operation_ is represented by a byte.
 An operation can be something like "add two values together" or "copy a value in memory from location A to location B".
@@ -9,6 +11,8 @@ The argument to the "add" example above would be the number 15.
 The operation together with its arguments forms an _instruction_.
 An instruction is one unit of work that will be performed at a time by the CPU.
 There are many different CPU instructions that the CPU supports.
+
+== CPU registers
 
 In order to be able to work with data, the CPU has a number of so-called _registers_.
 The registers are used to temporarily hold values inside the CPU.
@@ -38,6 +42,8 @@ The following is an overview of all registers inside the 65816.
 It is not important to understand what all these registers do at this point.
 In general the most commonly used registers are A, X and Y.
 
+== Assemblers
+
 Though it would be possible to write the code for the SNES entirely in binary form (byte-by-byte), this would be a very confusing and inefficient way to work, since the binary representation of the operations do not reflect what they do.
 In order to get around this problem a more abstract instruction set has been defined.
 
@@ -45,3 +51,30 @@ An _assembler_ is a program that takes such abstract instructions and converts t
 In assembly language, each instruction is made up of a _mnemonic_ (a 'symbol' that describes the operation) and its parameters (if the operation takes any parameters).
 An example of such a mnemonic is "Load a value into the A register": `LDA`.
 The instruction "Load value 42 into the A register" would be: `LDA #42`.
+
+There are many different assemblers, each with their own syntax, but most of them share the same concepts and they all use the same mnemonics.
+In this documentation we will presume the syntax of Ville Helin's link:http://www.villehelin.com/wla.html[WLA DX] assembler, which is an open source assember that supports multiple target architectures, amongst which the 65816.
+
+== General concepts
+
+=== Addressing
+
+Numbers are used everywhere in programming languages.
+This is a natural phenomenon since the byte code itself can be expressed in numbers.
+
+The most common type is a _byte_, which consists of 8 bits.
+A _word_ consists of 16 bits, or 2 bytes.
+The most-significant byte of a word is the one that holds the upper 8 bits and the least-significant byte holds the lower 8 bits.
+
+Any memory inside a computer can be seen as a series of bytes.
+A _memory address_ (or simply "address") is the location of a specific byte in memory.
+So if we want to access some value that has been stored in memory, we can tell the CPU the _address_ at which it is located and the CPU can apply the operation to that location in memory.
+An address can also be expressed in a number.
+How big this number is, depends on the size of the addressable memory.
+For instance, if we would have one byte of address space, we could access up to 256 bytes (0 to 255).
+A two-byte address space can account for 65536 bytes, and so forth.
+
+So far we have presumed that a memory address points to a single byte.
+However, a byte is not necessarily the unit behind an address location.
+As we will see later in this document, an address can also point to a word (or any other unit, for that matter).
+In this case a byte-sized address space can account for 256 words, or 512 bytes.
