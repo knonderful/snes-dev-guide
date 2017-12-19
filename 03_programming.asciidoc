@@ -68,7 +68,7 @@ The most-significant byte of a word is the one that holds the upper 8 bits and t
 
 Any memory inside a computer can be seen as a series of bytes.
 A _memory address_ (or simply "address") is the location of a specific byte in memory.
-So if we want to access some value that has been stored in memory, we can tell the CPU the _address_ at which it is located and the CPU can apply the operation to that location in memory.
+So if we want to access some value that has been stored in memory, we can tell the CPU the address at which it is located and the CPU can apply the operation to that location in memory.
 An address can also be expressed in a number.
 How big this number is, depends on the size of the addressable memory.
 For instance, if we would have one byte of address space, we could access up to 256 bytes (0 to 255).
@@ -78,3 +78,75 @@ So far we have presumed that a memory address points to a single byte.
 However, a byte is not necessarily the unit behind an address location.
 As we will see later in this document, an address can also point to a word (or any other unit, for that matter).
 In this case a byte-sized address space can account for 256 words, or 512 bytes.
+
+=== Numbers
+
+Assemblers support different kinds of notations for numbers.
+We will only consider the ones that are supported by WLA DX.
+
+==== Decimal
+
+Of course, numbers can be expressed in decimal notation.
+Expressing the decimal value of 23 simply is `23`.
+
+==== Binary
+
+Numbers can also be expressed in binary form.
+In this form every single bit of the byte is explicitly defined.
+This can be useful if the individual bits inside a byte have different meanings.
+In WLA DX a binary string starts with `%`, followed by all bits.
+
+For example the decimal number 23 can be expressed by the binary string `%10111`.
+In our examples we will often write add zero-padding until the next byte level to express the full value in memory better: `%00010111`.
+
+==== Hexadecimal
+
+The third way of expressing a number is hexadecimal notation.
+Hexadecimal numbers start with `$`, followed by the hexadecimal value.
+The hexadecimal value of 23 is `$17`.
+As with binary, we will usually add zero-padding on the left until the next byte boundary to express the full dimension of the value in memory.
+
+== In practice
+
+As mentioned before, we will write all code in the style of WLA DX, but other assemblers have similar concepts.
+
+The following is an example piece of WLA DX assembly code:
+
+.Assembly code example
+----
+Start:
+    lda #$00        ; Load 0 into A
+    sta $2101       ; Store the current value of A (0) into the value at address $2101
+
+    ldx $A020       ; Load the value at address $A020 into X
+    dex             ; Decrease the value of X by one
+    txa             ; Transfer the value of X to A
+    jmp Start       ; Jump back to Start
+----
+
+The above code fragment illustrates different aspects of writing code for the WLA DX assembler.
+The first line starts with a _label_ declaration.
+In this case the label is called `Start`.
+A label is a helper tool to make it easier for the developer to remember references to addresses in memory.
+The last line in the example contains a reference to the previously-declared label `Start`.
+When the code gets assembled, the assembler will substitute all references to labels with the address at which they were declared.
+In the above example, if the location of `Start` in memory is `$10AA`, then the last line in the example will cause the program to jump back to location `$10AA` in memory.
+Note that a label declaration writes no output to the target byte code; it is merely a helper for the programmer.
+
+The second line in the example above declares the first CPU instruction.
+In this case the mnemonic for "Load a value into the accumulator" (`lda`) is declared with the constant value `$00`.
+When a number is prepended with `#` the value gets written directly to the register.
+
+In contrast, the second instruction stores the value of A into the location `$2101` in memory.
+When a number does not have a `#` prepended, it will get interpreted by the assembler as an address.
+
+The third instruction demonstrates loading a value into a register from an address (note the missing `#`).
+
+The fourth and fifth instructions take no parameters at all.
+They decrease the current value of the X register by one and transfer the value from X to A, respectively.
+
+The last instruction, as mentioned before, instructs the CPU to start executing the code that starts at the address of `Start`, resulting in an infinite loop.
+
+Additionally, many lines contain comments.
+A comment in WLA DX starts with a `;` and ends at the end of the line.
+Comments serve only as an aid to the reader of the code and have no influence on the output byte code.
