@@ -12,6 +12,68 @@ The operation together with its arguments forms an _instruction_.
 An instruction is one unit of work that will be performed at a time by the CPU.
 There are many different CPU instructions that the CPU supports.
 
+== Assemblers
+
+Though it would be possible to write the code for the SNES entirely in binary form (byte-by-byte), this would be a very confusing and inefficient way to work, since the binary representation of the operations do not reflect what they do.
+In order to get around this problem a more abstract instruction set has been defined.
+
+An _assembler_ is a program that takes such abstract instructions and converts them into the _byte-code_ that the 65816 CPU can read.
+In assembly language, each instruction is made up of a _mnemonic_ (a 'symbol' that describes the operation) and its parameters (if the operation takes any parameters).
+An example of such a mnemonic is "Load a value into the A register": `LDA`.
+The instruction "Load value 42 into the A register" would be: `LDA #42`.
+
+There are many different assemblers, each with their own syntax, but most of them share the same concepts and they all use the same mnemonics.
+In this documentation we will presume the syntax of Ville Helin's link:http://www.villehelin.com/wla.html[WLA DX] assembler, which is an open source assember that supports multiple target architectures, amongst which the 65816.
+
+== Addressing
+
+Numbers are used everywhere in programming languages.
+This is a natural phenomenon since the byte code itself can be expressed in numbers.
+
+The most common type is a _byte_, which consists of 8 bits.
+A _word_ consists of 16 bits, or 2 bytes.
+The most-significant byte of a word is the one that holds the upper 8 bits and the least-significant byte holds the lower 8 bits.
+
+Any memory inside a computer can be seen as a series of bytes.
+A _memory address_ (or simply "address") is the location of a specific byte in memory.
+So if we want to access some value that has been stored in memory, we can tell the CPU the address at which it is located and the CPU can apply the operation to that location in memory.
+An address can also be expressed in a number.
+How big this number is, depends on the size of the addressable memory.
+For instance, if we would have one byte of address space, we could access up to 256 bytes (0 to 255).
+A two-byte address space can account for 65536 bytes, and so forth.
+
+So far we have presumed that a memory address points to a single byte.
+However, a byte is not necessarily the unit behind an address location.
+As we will see later in this document, an address can also point to a word (or any other unit, for that matter).
+In this case a byte-sized address space can account for 256 words, or 512 bytes.
+
+== Numbers
+
+Assemblers support different kinds of notations for numbers.
+We will only consider the ones that are supported by WLA DX.
+
+=== Decimal
+
+Of course, numbers can be expressed in decimal notation.
+Expressing the decimal value of 23 simply is `23`.
+
+=== Binary
+
+Numbers can also be expressed in binary form.
+In this form every single bit of the byte is explicitly defined.
+This can be useful if the individual bits inside a byte have different meanings.
+In WLA DX a binary string starts with `%`, followed by all bits.
+
+For example the decimal number 23 can be expressed by the binary string `%10111`.
+In our examples we will often write add zero-padding until the next byte level to express the full value in memory better: `%00010111`.
+
+=== Hexadecimal
+
+The third way of expressing a number is hexadecimal notation.
+Hexadecimal numbers start with `$`, followed by the hexadecimal value.
+The hexadecimal value of 23 is `$17`.
+As with binary, we will usually add zero-padding on the left until the next byte boundary to express the full dimension of the value in memory.
+
 == CPU registers
 
 In order to be able to work with data, the CPU has a number of so-called _registers_.
@@ -39,72 +101,57 @@ The following is an overview of all registers inside the 65816.
 | DB    | Data Bank        | Holds the memory bank address of the data the CPU is accessing.
 |===
 
-It is not important to understand what all these registers do at this point.
-In general the most commonly used registers are A, X and Y.
+We will give a brief description of the different registers.
+It is not important to understand exactly what all these registers do at this point; it will become more clear when we dive into the code.
 
-== Assemblers
+=== Accumulator
 
-Though it would be possible to write the code for the SNES entirely in binary form (byte-by-byte), this would be a very confusing and inefficient way to work, since the binary representation of the operations do not reflect what they do.
-In order to get around this problem a more abstract instruction set has been defined.
+This generally is the most-used register.
+It supports:
 
-An _assembler_ is a program that takes such abstract instructions and converts them into the _byte-code_ that the 65816 CPU can read.
-In assembly language, each instruction is made up of a _mnemonic_ (a 'symbol' that describes the operation) and its parameters (if the operation takes any parameters).
-An example of such a mnemonic is "Load a value into the A register": `LDA`.
-The instruction "Load value 42 into the A register" would be: `LDA #42`.
+* Loading (`LDA`) and storing (`STA`).
+* Addition (`ADC`) and subtraction (`SBC`).
+* Incrementing (`INC`) and decrementing (`DEC`).
+* Logical operations _AND_ (`AND`), _OR_ (`ORA`) and _XOR_ (`EOR`).
+* Comparison (`CMP`).
+* Bit-shifting (`ASL`, `LSR`, `ROL` and `ROR`).
+* Transferring from X (`TXA`) and to X (`TAX`).
+* Transferring from Y (`TYA`) and to Y (`TAY`).
+* Pushing onto the stack (`PHA`) and pulling from the stack (`PLA`).
 
-There are many different assemblers, each with their own syntax, but most of them share the same concepts and they all use the same mnemonics.
-In this documentation we will presume the syntax of Ville Helin's link:http://www.villehelin.com/wla.html[WLA DX] assembler, which is an open source assember that supports multiple target architectures, amongst which the 65816.
+=== Index X
 
-== General concepts
+This register is often used for loop counting and for indexing.
 
-=== Addressing
+Indexing is a technique where a base address and an index are defined.
+The CPU then calculates the "effective address" by adding the index to the base address.
+This is useful for where a collection of values needs to be loaded sequentially from memory or needs to be stored sequentially into memory.
 
-Numbers are used everywhere in programming languages.
-This is a natural phenomenon since the byte code itself can be expressed in numbers.
+This register supports:
 
-The most common type is a _byte_, which consists of 8 bits.
-A _word_ consists of 16 bits, or 2 bytes.
-The most-significant byte of a word is the one that holds the upper 8 bits and the least-significant byte holds the lower 8 bits.
+* Indexing from an address in memory.
+* Loading (`LDX`) and storing (`STX`).
+* Incrementing (`INX`) and decrementing (`DEX`).
+* Comparison (`CPX`).
+* Transferring from A (`TAX`) and to A (`TXA`).
+* Transferring the stack pointer to X (`TSX`) and transferring X to the stack pointer (`TXS`).
+* Pushing onto the stack (`PHX`) and pulling from the stack (`PLX`).
 
-Any memory inside a computer can be seen as a series of bytes.
-A _memory address_ (or simply "address") is the location of a specific byte in memory.
-So if we want to access some value that has been stored in memory, we can tell the CPU the address at which it is located and the CPU can apply the operation to that location in memory.
-An address can also be expressed in a number.
-How big this number is, depends on the size of the addressable memory.
-For instance, if we would have one byte of address space, we could access up to 256 bytes (0 to 255).
-A two-byte address space can account for 65536 bytes, and so forth.
+=== Index Y
 
-So far we have presumed that a memory address points to a single byte.
-However, a byte is not necessarily the unit behind an address location.
-As we will see later in this document, an address can also point to a word (or any other unit, for that matter).
-In this case a byte-sized address space can account for 256 words, or 512 bytes.
+This register is often used for loop counting and for indexing.
+It supports:
 
-=== Numbers
+* Indexing from an address in memory.
+* Loading (`LDY`) and storing (`STY`).
+* Incrementing (`INY`) and decrementing (`DEY`).
+* Comparison (`CPY`).
+* Transferring from A (`TAY`) and to A (`TYA`).
+* Pushing onto the stack (`PHY`) and pulling from the stack (`PLY`).
 
-Assemblers support different kinds of notations for numbers.
-We will only consider the ones that are supported by WLA DX.
+=== Processor status
 
-==== Decimal
-
-Of course, numbers can be expressed in decimal notation.
-Expressing the decimal value of 23 simply is `23`.
-
-==== Binary
-
-Numbers can also be expressed in binary form.
-In this form every single bit of the byte is explicitly defined.
-This can be useful if the individual bits inside a byte have different meanings.
-In WLA DX a binary string starts with `%`, followed by all bits.
-
-For example the decimal number 23 can be expressed by the binary string `%10111`.
-In our examples we will often write add zero-padding until the next byte level to express the full value in memory better: `%00010111`.
-
-==== Hexadecimal
-
-The third way of expressing a number is hexadecimal notation.
-Hexadecimal numbers start with `$`, followed by the hexadecimal value.
-The hexadecimal value of 23 is `$17`.
-As with binary, we will usually add zero-padding on the left until the next byte boundary to express the full dimension of the value in memory.
+_(TODO: This and the remaining registers.)_
 
 == Assembly coding concepts
 
