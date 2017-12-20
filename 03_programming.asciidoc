@@ -106,7 +106,7 @@ Hexadecimal numbers start with `$`, followed by the hexadecimal value.
 The hexadecimal value of 23 is `$17`.
 As with binary, we will usually add zero-padding on the left until the next byte boundary to express the full dimension of the value in memory.
 
-== In practice
+== Assembly coding concepts
 
 As mentioned before, we will write all code in the style of WLA DX, but other assemblers have similar concepts.
 
@@ -150,3 +150,15 @@ The last instruction, as mentioned before, instructs the CPU to start executing 
 Additionally, many lines contain comments.
 A comment in WLA DX starts with a `;` and ends at the end of the line.
 Comments serve only as an aid to the reader of the code and have no influence on the output byte code.
+
+Assembly instructions can be divided into two categories:
+
+* Data manipulation instructions
+* Program flow instructions
+
+Data manipulation instructions are all instructions that involve accessing values from somewhere in the system and working with those values.
+Examples are loading a value from memory into a register, shifting bits of a value in a register or comparing two values with eachother.
+
+Program flow instructions are used to control what the program will do next.
+This type of instruction causes the CPU to jump to another location in memory and execute the next instruction from there.
+Often program flow instructions involve some kind of predicate to be evaluated before the decision is made where the program will continue.
