@@ -134,6 +134,7 @@ This register supports:
 * Incrementing (`INX`) and decrementing (`DEX`).
 * Comparison (`CPX`).
 * Transferring from A (`TAX`) and to A (`TXA`).
+* Transferring from Y (`TYX`) and to Y (`TXY`).
 * Transferring the stack pointer to X (`TSX`) and transferring X to the stack pointer (`TXS`).
 * Pushing onto the stack (`PHX`) and pulling from the stack (`PLX`).
 
@@ -147,6 +148,7 @@ It supports:
 * Incrementing (`INY`) and decrementing (`DEY`).
 * Comparison (`CPY`).
 * Transferring from A (`TAY`) and to A (`TYA`).
+* Transferring from X (`TXY`) and to X (`TYX`).
 * Pushing onto the stack (`PHY`) and pulling from the stack (`PLY`).
 
 === Processor status
