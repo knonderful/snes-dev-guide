@@ -153,6 +153,31 @@ It supports:
 
 === Processor status
 
+This register (also called simply the _status register_) contains several flags that indicate the current status of the CPU.
+A flag is a one-bit value that that indicates whether a certain state is on or off.
+Some of the flags are used to indicate characteristics of previous operations (for instance if the addition of two numbers results in a carry bit).
+Other flags are related to the CPU processor features.
+
+.Status register flags
+[cols="5,5,20,70",options="header"]
+|===
+| Bit | Short | Name             | Purpose
+| 0   | c     | Carry            | Indicates an arithmetic overflow (carry) or underflow (borrow).
+| 1   | z     | Zero			 | Indicates whether the last result was zero or not.
+| 2   | i     | IRQ interrupt    | Enables or disables the IRQ interrupt line.
+| 3   | d     | Decimal			 | Enables or disables decimal mode.
+| 4   | x     | Index size       | The size of the index registers (X and Y).
+| 5   | m     | Accumulator size | The size of the accumulator.
+| 6   | v     | Overflow         | Indicates invalid carry into high bit of arithmetic result (two's-complement overflow).
+| 7   | n     | Negative         | Inicates whether the last arithmetic operation resulted in a negative value.
+| 0   | e     | Emulation        | Enables and disables emulation mode.
+|===
+
+Note that the first bit (0) has two purposes.
+By default the value in this bit reflects the carry status.
+However, the 65816 supports a so-called _emulation mode_ in which the behavior of another CPU is emulated.
+In order to switch into or out of emulation mode, the carry bit is set or cleared and a special operation then transfers this value to the emulation flag.
+
 _(TODO: This and the remaining registers.)_
 
 == Assembly coding concepts
