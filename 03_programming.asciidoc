@@ -17,13 +17,13 @@ There are many different CPU instructions that the CPU supports.
 Though it would be possible to write the code for the SNES entirely in binary form (byte-by-byte), this would be a very confusing and inefficient way to work, since the binary representation of the operations do not reflect what they do.
 In order to get around this problem a more abstract instruction set has been defined.
 
-An _assembler_ is a program that takes such abstract instructions and converts them into the _byte-code_ that the 65816 CPU can read.
+An _assembler_ is a program that takes such abstract instructions and converts them into the _byte-code_ that the CPU can read.
 In assembly language, each instruction is made up of a _mnemonic_ (a 'symbol' that describes the operation) and its parameters (if the operation takes any parameters).
 An example of such a mnemonic is "Load a value into the A register": `LDA`.
 The instruction "Load value 42 into the A register" would be: `LDA #42`.
 
 There are many different assemblers, each with their own syntax, but most of them share the same concepts and they all use the same mnemonics.
-In this documentation we will presume the syntax of Ville Helin's link:http://www.villehelin.com/wla.html[WLA DX] assembler, which is an open source assember that supports multiple target architectures, amongst which the 65816.
+In this documentation we will presume the syntax of Ville Helin's link:http://www.villehelin.com/wla.html[WLA DX] assembler, which is an open source assember that supports multiple target architectures.
 
 == Addressing
 
