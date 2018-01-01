@@ -180,7 +180,10 @@ In order to switch into or out of emulation mode, the carry bit is set or cleare
 
 === Stack pointer
 
-_(TODO)_
+The stack is a dedicated region in RAM for storing temporary values.
+In order to achieve this the location of the top-most element is stored in the stack pointer register.
+Every time a value gets _pushed_ to the stack the value is written to the address in RAM for the current stack pointer and the value of the stack pointer itself is decremented.
+Similarly, when a value gets _pulled_ from the stack the stack pointer is incremented and then the value is read from the address in RAM for the current stack pointer.
 
 === Direct page
 
