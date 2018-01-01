@@ -178,7 +178,25 @@ By default the value in this bit reflects the carry status.
 However, the 65816 supports a so-called _emulation mode_ in which the behavior of another CPU is emulated.
 In order to switch into or out of emulation mode, the carry bit is set or cleared and a special operation then transfers this value to the emulation flag.
 
-_(TODO: This and the remaining registers.)_
+=== Stack pointer
+
+_(TODO)_
+
+=== Direct page
+
+_(TODO)_
+
+=== Program bank
+
+_(TODO)_
+
+=== Program counter
+
+_(TODO)_
+
+=== Data bank
+
+_(TODO)_
 
 == Assembly coding concepts
 
