@@ -74,7 +74,7 @@ Hexadecimal numbers start with `$`, followed by the hexadecimal value.
 The hexadecimal value of 23 is `$17`.
 As with binary, we will usually add zero-padding on the left until the next byte boundary to express the full dimension of the value in memory.
 
-== Memory banks
+== Banks and pages
 
 The 65816 can handle addresses of up to 24 bits.
 The entire memory space is divided into _banks_.
@@ -85,6 +85,10 @@ For instance address `$C390` in bank `$24` is located at `$24C390` in memory.
 One of the main reasons for this segmentation of the memory space in banks is that it reduces the amount of bytes that is needed to identify an address, which results in less byte-code.
 This implicates that more program code and artwork can fit inside the ROM, which was important since memory was expensive at the time.
 Another reason for the introduction of banks was run-time performance: operations that take 16-bit addresses as an argument are faster than their 24-bit counterpart.
+
+Similar to a bank a _page_ is an 8-bit address range.
+The 65816 has several operations that take a page-range address as an argument.
+One limitation for these operations is that they can only work with addresses in the first bank of memory, i.e. the bank is always zero (`$00`) for page-based addressing modes.
 
 == CPU registers
 
@@ -107,10 +111,10 @@ The following is an overview of all registers inside the 65816.
 | Y     | Index Y          | Register for indexing. Often used to calculate addresses with a certain offset to a base address.
 | P     | Processor Status | Processor flags, holds the results of tests and 65816 processing states.
 | S     | Stack Pointer    | Points to the current location of the stack.
-| DP    | Direct Page      | Points to the current page for direct addressing mode operations.
 | PB    | Program Bank     | Holds the memory bank address of the current CPU instruction.
 | PC    | Program Counter  | Holds the memory address of the current CPU instruction.
 | DB    | Data Bank        | Holds the memory bank address of the data the CPU is accessing.
+| DP    | Direct Page      | Points to the current page for direct addressing mode operations.
 |===
 
 We will give a brief description of the different registers.
@@ -165,7 +169,7 @@ It supports:
 
 === Processor status
 
-This register (also called simply the _status register_) contains several flags that indicate the current status of the CPU.
+This register (also called simply the _status register_) is the size of one byte and contains several flags that indicate the current status of the CPU.
 A flag is a one-bit value that that indicates whether a certain state is on or off.
 Some of the flags are used to indicate characteristics of previous operations (for instance if the addition of two numbers results in a carry bit).
 Other flags are related to the CPU processor features.
@@ -197,22 +201,27 @@ In order to achieve this the location of the top-most element is stored in the s
 Every time a value gets _pushed_ to the stack the value is written to the address in RAM for the current stack pointer and the value of the stack pointer itself is decremented.
 Similarly, when a value gets _pulled_ from the stack the stack pointer is incremented and then the value is read from the address in RAM for the current stack pointer.
 
-=== Program bank
-
-
-_(TODO)_
-
 === Program counter
 
-_(TODO)_
+This register holds the address inside the current bank of the next instruction that is to be executed by the CPU.
+When the SNES is powered on the CPU starts executing code from a pre-defined location in the first memory bank.
+The program counter gets incremented after each instruction, so that it points to the next instruction.
+Additionally, certain operations instruct the CPU to "jump" to another location in memory and start executing code from there.
+In this case the CPU automatically updates the program counter (and program bank, if necessary) to the location as pointed to by the instruction.
+
+=== Program bank
+
+This register holds the current bank number from which CPU instructions are read.
 
 === Data bank
 
-_(TODO)_
+This register holds the bank number for 16-bit address instructions.
+The result of the (relative) address from the instruction prepended with the value in this register is the absolute address in memory that is to be accessed (either for loading or storing).
 
 === Direct page
 
-_(TODO)_
+The direct page register holds the upper byte for the relative address when using page-based addressing.
+As mentioned before, these addressing modes always implicitly assume bank number zero.
 
 == Assembly coding concepts
 
