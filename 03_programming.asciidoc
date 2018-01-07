@@ -74,6 +74,18 @@ Hexadecimal numbers start with `$`, followed by the hexadecimal value.
 The hexadecimal value of 23 is `$17`.
 As with binary, we will usually add zero-padding on the left until the next byte boundary to express the full dimension of the value in memory.
 
+== Memory banks
+
+The 65816 can handle addresses of up to 24 bits.
+The entire memory space is divided into _banks_.
+Each address inside a bank is 16 bits and the bank number itself is 8 bits.
+This results in 256 banks (`$00`-`$FF`), each of which containing 65536 addresses (`$0000`-`$FFFF`).
+The absolute address in memory can be obtained by prepending the bank number to the (relative) address.
+For instance address `$C390` in bank `$24` is located at `$24C390` in memory.
+One of the main reasons for this segmentation of the memory space in banks is that it reduces the amount of bytes that is needed to identify an address, which results in less byte-code.
+This implicates that more program code and artwork can fit inside the ROM, which was important since memory was expensive at the time.
+Another reason for the introduction of banks was run-time performance: operations that take 16-bit addresses as an argument are faster than their 24-bit counterpart.
+
 == CPU registers
 
 In order to be able to work with data, the CPU has a number of so-called _registers_.
@@ -185,11 +197,8 @@ In order to achieve this the location of the top-most element is stored in the s
 Every time a value gets _pushed_ to the stack the value is written to the address in RAM for the current stack pointer and the value of the stack pointer itself is decremented.
 Similarly, when a value gets _pulled_ from the stack the stack pointer is incremented and then the value is read from the address in RAM for the current stack pointer.
 
-=== Direct page
-
-_(TODO)_
-
 === Program bank
+
 
 _(TODO)_
 
@@ -198,6 +207,10 @@ _(TODO)_
 _(TODO)_
 
 === Data bank
+
+_(TODO)_
+
+=== Direct page
 
 _(TODO)_
 
