@@ -72,7 +72,7 @@ This means that rather than storing all the data for a single pixel together (wh
 Each plane contains one bit for each pixel of the graphic.
 The following example illustrates this, using the same palette as before.
 
-.A character with one bit per pixel
+.A character with two bits per pixel
 image::images/char_2bpp.svg[]
 
 The first plane contains the least-significant bit for each pixel and the second plane contains the most-significant bit.
