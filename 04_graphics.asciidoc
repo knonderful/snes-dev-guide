@@ -28,9 +28,9 @@ For instance, consider the following palette:
 image::images/palette_2bpp.svg[]
 
 Using this palette, if a pixel is found with value 0, the pixel will be colored white.
-A pixel with value 1 will be orange, pixel with value 2 will be red and a pixel with value 3 will be black.
+A pixel with value 1 will be orange, a pixel with value 2 will be red and a pixel with value 3 will be black.
 
-Most graphics on the SNES assume the first value in the palette to be transparent, meaning that pixels with that value will not be drawn to the screen.
+Most graphics on the SNES assume the first value in the palette to be transparent, meaning that pixels with value zero will not be drawn to the screen.
 
 Each color in the SNES is represented by 15 bits: 5 bits for red, 5 bits for green and 5 bits for blue.
 This allows for a total of 32,768 colors.
