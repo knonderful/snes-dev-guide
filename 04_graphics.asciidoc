@@ -67,6 +67,35 @@ This implicates that there is some place where these two pieces of data are join
 For objects this place is the _object attribute memory_ (OAM).
 For tiles this information is located in _tile maps_ (one for each background layer).
 
+== Video RAM (VRAM)
+
+The VRAM is where the character data for all visible artifacts is stored.
+In addition to the character data, all tile maps for the background layers are stored in VRAM.
+The palette data and the object information are stored in a separate areas (<<#cgram, CGRAM>> and <<#oam, OAM>>, respectively).
+
+The total size of the VRAM is 64 KiB and is addressable by the 16-bit B-bus.
+What is important to note is that addressing for the VRAM is done in _words_, rather than bytes.
+This means that bytes 0 and 1 are at address `$0000`, bytes 2 and 3 are at `$0001`, bytes 4 and 5 are at `$0002`, and so forth.
+The last two bytes are located at `$7FFF`.
+
+The application is responsible for writing data from the game cartridge's ROM to the VRAM and has a certain degree of freedom in how this memory is used.
+
+[[cgram]]
+== Color generator RAM (CGRAM)
+
+The CGRAM contains the palettes that are currently being used by objects and tiles.
+This memory consists of 256 words (or 512 bytes), where each word represents a color in a palette.
+
+The first half of the CGRAM (`$00`-`$7F`) is dedicated to palettes for the background tiles.
+The second half (`$80`-`$FF`) is for palettes for the objects.
+
+[[oam]]
+== Object attribute memory (OAM)
+
+The last video-related memory in the SNES is the OAM.
+This area is 272 words (or 544 bytes) in size and basically contains a table with one entry per object.
+Each entry in the table is 34 bits, resulting in a total of 128 possible objects at a time.
+
 == Character data structure
 
 The SNES character data is stored in a planar structure.
