@@ -20,7 +20,7 @@ Background layers can appear behind and in front of other layers and sprites.
 Both objects and tiles are defined using _character data_.
 In case of the SNES a _character_ defines an 8x8 pixel area.
 Each pixel in a character is defined by a numeric value.
-By mapping the value for each in the character to a specific color a visible image can be created.
+By mapping the value for each pixel in the character to a specific color a visible image (which is nothing but a raster of colored pixels) can be created.
 Such a map of values to colors is called a _palette_.
 
 Consider the following palette:
