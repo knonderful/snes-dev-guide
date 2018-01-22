@@ -1,6 +1,6 @@
 = SNES graphics
 
-== Objects and backgrounds
+== Graphics basics
 
 The SNES graphics can be separated into two categories.
 
@@ -9,7 +9,7 @@ An object is a graphical element that has its own independent position on the sc
 Objects are normally used for things that the player can interact with, like the hero character, enemies, projectiles etc.
 
 The second category is _background layers_.
-A background layer consists of a number of _tiles_ that are organized in a pre-defined raster.
+A background layer consists of a number of _tiles_ of the same size that are organized in a pre-defined raster.
 The individual tiles inside the background layer can not be moved.
 The only way to change the position of tiles is to move then entire background layer.
 Background layers are normally used for things with which the player can not interact.
@@ -18,14 +18,12 @@ The SNES supports different graphics modes, each supporting its own set of backg
 Background layers can appear behind and in front of other layers and sprites.
 
 Both objects and tiles are defined using _character data_.
-In case of the SNES a _character_ consists of one or more 8x8 pixel areas, called _character units_.
+In case of the SNES a _character_ defines an 8x8 pixel area.
+Each pixel in a character is defined by a numeric value.
+By mapping the value for each in the character to a specific color a visible image can be created.
+Such a map of values to colors is called a _palette_.
 
-== Graphics format
-
-The SNES uses color _palettes_ for most of its graphics.
-A palette defines which color is used for the corresponding value of a pixel.
-
-For instance, consider the following palette:
+Consider the following palette:
 
 .A palette with 4 colors
 image::images/palette_2bpp.svg[]
@@ -33,26 +31,23 @@ image::images/palette_2bpp.svg[]
 Using this palette, if a pixel is found with value 0, the pixel will be colored white.
 A pixel with value 1 will be orange, a pixel with value 2 will be red and a pixel with value 3 will be black.
 
-Most graphics on the SNES assume the first value in the palette to be transparent, meaning that pixels with value zero will not be drawn to the screen.
+.A character with 4 possible values per pixel
+image::images/char_example.svg[]
 
-Each color in the SNES is represented by 15 bits: 5 bits for red, 5 bits for green and 5 bits for blue.
-This allows for a total of 32,768 colors.
-
-Using palettes instead of color values in the graphics data has two main advantages.
+Using palettes instead of (direct) color values in the graphics data has two main advantages.
 Firstly, much less memory is needed to store graphics data.
 Secondly, it allows for easy animation and re-use of graphics.
-For instance, a waterfall effect can be simulated by cleverly cycling the palette colors.
+For instance, a waterfall effect can be simulated by cleverly cycling the palette colors, while the character data does not need to be modified.
 And the swapping of costumes in the classic Megaman series is done by simply updating the palette for the Megaman sprite.
 
-Graphics on the SNES are bitmap-based.
-This means that every pixel in an image is defined by a number of bits.
-In its simplest form each bit of data represents one pixel of the graphic.
-The following is an example of a character unit which is encoded with one bit per pixel.
+Most graphics on the SNES assume the first value in the palette to be transparent, meaning that pixels with value zero will not be drawn to the screen.
+
+In the simplest form of a raster-based image each bit of data represents exactly one pixel.
+The following is an example of an image which is encoded with one bit per pixel.
 
 .An image with one bit per pixel
 image::images/char_1bpp.svg[]
 
-On the left is the data in memory of the unit and on the right is its representation on screen.
 This example uses the palette that we defined earlier.
 
 Using only one bit per pixel only allows for two colors to be used for the character.
@@ -67,15 +62,19 @@ This implicates that an object can use up to 16 colors.
 
 The number of bits per pixel used for background tiles depends on the graphics mode that has been selected by the program; it can be either 2, 4 or 8 bits per pixel.
 
+As we have seen, character data and palettes are combined to produce graphics on the screen.
+This implicates that there is some place where these two pieces of data are joined.
+For objects this place is the _object attribute memory_ (OAM).
+For tiles this information is located in _tile maps_ (one for each background layer).
+
 === Character data structure
 
-The SNES graphics are stored in a planar structure.
-This means that rather than storing all the data for a single pixel together (which is a common approach for image formats like BMP), the graphic data is grouped by _plane_.
-Each plane contains one bit for each pixel of the graphic.
+The SNES character data stored in a planar structure.
+This means that rather than storing all the data for a single pixel together (which is a common approach for image formats like BMP), the data is grouped by _plane_.
+Each plane contains one bit for each pixel of the character.
 The following example illustrates this, using the same palette as before.
 
 .A character with two bits per pixel
 image::images/char_2bpp.svg[]
 
 The first plane contains the least-significant bit for each pixel and the second plane contains the most-significant bit.
-The effective pixel value is then applied to the palette, which results in a color for each pixel.
