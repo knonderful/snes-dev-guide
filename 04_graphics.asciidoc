@@ -1,12 +1,12 @@
 = SNES graphics
 
-== Sprites and backgrounds
+== Objects and backgrounds
 
 The SNES graphics can be separated into two categories.
 
-The first category is _sprites_.
-A sprite is a graphical element that has its own independent position on the screen.
-Sprites are normally used for things that the player can interact with, like the hero character, enemies, projectiles etc.
+The first category is _objects_.
+An object is a graphical element that has its own independent position on the screen.
+Objects are normally used for things that the player can interact with, like the hero character, enemies, projectiles etc.
 
 The second category is _background layers_.
 A background layer consists of a number of _tiles_ that are organized in a pre-defined raster.
@@ -16,6 +16,9 @@ Background layers are normally used for things with which the player can not int
 Examples are the floor, ceiling and walls for a platforming game and artifacts in the distance like clouds and trees.
 The SNES supports different graphics modes, each supporting its own set of background layers.
 Background layers can appear behind and in front of other layers and sprites.
+
+Both objects and tiles are defined using _character data_.
+In case of the SNES a _character_ consists of one or more 8x8 pixel areas, called _character units_.
 
 == Graphics format
 
@@ -43,16 +46,13 @@ And the swapping of costumes in the classic Megaman series is done by simply upd
 
 Graphics on the SNES are bitmap-based.
 This means that every pixel in an image is defined by a number of bits.
-Furthermore, graphics on the SNES are grouped together in sections of 8-by-8 pixels.
-Such a section is called a _character_.
+In its simplest form each bit of data represents one pixel of the graphic.
+The following is an example of a character unit which is encoded with one bit per pixel.
 
-The simplest form of a character is when each bit of data represents one pixel of the graphic.
-The following is an example of a character which is encoded with one bit per pixel.
-
-.A character with one bit per pixel
+.An image with one bit per pixel
 image::images/char_1bpp.svg[]
 
-The left image represents the data in memory of the character, while the right image is its representation on screen.
+On the left is the data in memory of the unit and on the right is its representation on screen.
 This example uses the palette that we defined earlier.
 
 Using only one bit per pixel only allows for two colors to be used for the character.
@@ -62,10 +62,12 @@ To allow for more colors the SNES supports different pixel formats:
 * 4 bits per pixel (4 bpp)
 * 8 bits per pixel (8 bpp)
 
-Sprites always use the 4 bpp format.
-This implicates that a sprite can use up to 16 colors.
+Objects always use the 4 bpp format.
+This implicates that an object can use up to 16 colors.
 
 The number of bits per pixel used for background tiles depends on the graphics mode that has been selected by the program; it can be either 2, 4 or 8 bits per pixel.
+
+=== Character data structure
 
 The SNES graphics are stored in a planar structure.
 This means that rather than storing all the data for a single pixel together (which is a common approach for image formats like BMP), the graphic data is grouped by _plane_.
@@ -77,4 +79,3 @@ image::images/char_2bpp.svg[]
 
 The first plane contains the least-significant bit for each pixel and the second plane contains the most-significant bit.
 The effective pixel value is then applied to the palette, which results in a color for each pixel.
-
