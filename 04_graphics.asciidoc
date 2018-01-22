@@ -69,10 +69,9 @@ For tiles this information is located in _tile maps_ (one for each background la
 
 === Character data structure
 
-The SNES character data stored in a planar structure.
-This means that rather than storing all the data for a single pixel together (which is a common approach for image formats like BMP), the data is grouped by _plane_.
+The SNES character data is stored in a planar structure.
+Rather than storing all the data for a single pixel together (which is a common approach for image formats like BMP), the data is grouped by _plane_.
 Each plane contains one bit for each pixel of the character.
-The following example illustrates this, using the same palette as before.
 
 .A character with two bits per pixel
 image::images/char_2bpp.svg[]
